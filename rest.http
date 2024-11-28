@@ -1,0 +1,15 @@
+GET http://localhost:3000
+
+### 
+POST  http://localhost:3000/api/user/register 
+
+###
+POST  http://localhost:3000/api/user/login 
+
+###
+POST  http://localhost:3000/api/user/refresh-token 
+
+###
+POST  http://localhost:3000/api/user/logout 
+
+
