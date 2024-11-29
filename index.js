@@ -2,7 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv')
 const createError = require('http-errors')
 const userRoute = require('./routes/user.route')
-require('./helpers/connect-mongo')
+// require('./helpers/connect-mongo')
 dotenv.config();
 const app = express();
 
