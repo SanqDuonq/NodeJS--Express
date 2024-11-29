@@ -4,7 +4,7 @@ const connect = mongoose.createConnection('mongodb://localhost:27017/test')
 connect.on('connected',function() {
     console.log(`MongoDB::: connected::: ${this.name}`)
 })
-
+ 
 connect.on('disconnected',function() {
     console.log(`MongoDB::: disconnected::: ${this.name}`)
 })
