@@ -1,16 +1,13 @@
 const express = require('express') 
 const dotenv = require('dotenv')
 const createError = require('http-errors')
-const userRoute = require('./routes/user.route')
-// require('./helpers/connect-mongo')
+const userRoute = require('./routes/user.route');
+const { connectDB } = require('./helpers/connect-mongo');
 dotenv.config();
 const app = express();
 
-
-app.get('/',(req,res,next) => {
-    res.send('Home Page')
-})
-
+connectDB();
+app.use(express.json())
 app.use('/api/user',userRoute)
 
 app.use((req,res,next) => {

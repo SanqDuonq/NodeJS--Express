@@ -1,8 +1,33 @@
 const express = require('express')
 const router = express.Router();
+const createError = require('http-errors')
+const User = require('../models/user.model')
 
-router.post('/register', (req,res,next) => {
-    res.send('register route')
+
+router.post('/register', async (req,res,next) => {
+    try {
+        const {email,password} = req.body
+        if (!email || !password) {
+            throw createError.BadRequest()
+        }
+        const isExits = await User.findOne({
+            username: email
+        })
+        if (isExits) {
+            throw createError.Conflict(`${email} is ready been register`);
+        }
+        const isCreate = await User.create({
+            username: email,
+            password
+        })
+        return res.json({
+            status: 'Successful',
+            data: isCreate
+        })
+    } catch (error) {
+        next(error)
+    }
+
 })
 router.post('/refresh-token', (req,res,next) => {
     res.send('refresh-token route')
