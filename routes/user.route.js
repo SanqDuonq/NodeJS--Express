@@ -20,13 +20,16 @@ router.post('/register', async (req,res,next) => {
         if (isExits) {
             throw createError.Conflict(`${email} is ready been register`);
         }
-        const isCreate = await User.create({
+        
+        const user = new User({
             username: email,
             password
         })
+
+        const savedUser = await user.save();
         return res.json({
             status: 'Successful',
-            data: isCreate
+            data: savedUser
         })
     } catch (error) {
         next(error)
