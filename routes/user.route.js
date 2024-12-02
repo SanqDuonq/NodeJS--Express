@@ -12,8 +12,6 @@ router.post('/register', async (req,res,next) => {
         if (error) {
             throw createError.BadRequest(error.details[0].message)
         }
-
-
         const isExits = await User.findOne({
             username: email
         })
@@ -36,11 +34,29 @@ router.post('/register', async (req,res,next) => {
     }
 
 })
-router.post('/refresh-token', (req,res,next) => {
+router.post('/refresh-token', async (req,res,next) => {
     res.send('refresh-token route')
 })
-router.post('/login', (req,res,next) => {
-    res.send('login route')
+router.post('/login', async (req,res,next) => {
+    try {
+        const {email,password} = req.body
+        const {error} = userValidate(req.body)
+        if (error) {
+            throw createError(error.details[0].message)
+        }
+        const user = await User.findOne({username: email})
+        if(!user){
+            console.log('User not found:', email);
+            throw createError.NotFound('User not register')
+        }
+        const isValid = await user.isCheckPassword(password)
+        if (!isValid){
+            throw createError.Unauthorized()
+        }
+        res.send(user)
+    } catch (error) {
+        next(error)
+    }
 })
 router.post('/logout', (req,res,next) => {
     res.send('logout route')

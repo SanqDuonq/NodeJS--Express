@@ -5,12 +5,18 @@ POST  http://localhost:3000/api/user/register
 Content-Type: application/json
 
 {
-    "email": "namsang0900s@gmail.com",
+    "email": "namsang09012s@gmail.com",
     "password": "s0902#@!zA"
 }
 
 ###
 POST  http://localhost:3000/api/user/login 
+Content-Type: application/json
+
+{
+    "email": "namsang09012s@gmail.com",
+    "password": "s0902#@!zA"
+}
 
 ###
 POST  http://localhost:3000/api/user/refresh-token 
